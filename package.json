@@ -1,0 +1,14 @@
+{
+  "name": "randomideas",
+  "version": "1.0.0",
+  "description": "Idea Generator",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Ahkar Shwe Baw (Tech Giant)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
