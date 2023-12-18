@@ -10,7 +10,9 @@
 	"author": "Ahkar Shwe Baw (Tech Giant)",
 	"license": "MIT",
 	"dependencies": {
-		"express": "^4.18.2"
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"mongoose": "^8.0.3"
 	},
 	"devDependencies": {
 		"nodemon": "^3.0.2"
