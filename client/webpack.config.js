@@ -7,7 +7,9 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, '../public'),
-    filename: 'bundle.js',
+    // filename: 'bundle.js',
+    //use [name].bundle.js to split code (bundle.js size is limited)
+    filename: '[name].bundle.js',
   },
   devServer: {
     static: {
@@ -48,4 +50,9 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
   ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 };
