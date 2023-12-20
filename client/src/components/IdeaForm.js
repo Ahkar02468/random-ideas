@@ -17,7 +17,7 @@ class IdeaForm{
                username: this._form.username.value,
           }
 
-          console.log(ideas);
+          // console.log(ideas);
           this._form.elements.text.value = '';
           this._form.elements.tag.value = '';
           this._form.elements.username.value = '';
