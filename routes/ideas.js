@@ -44,8 +44,14 @@ router.post('/', async (req, res) => {
 //update an idea
 router.put('/:id', async (req, res) => {
      try {
-          const updateIdea = await Idea.findByIdAndUpdate(req.params.id, req.body, { new: true });
-          res.json({ success: true, data: updateIdea });
+          const idea = await Idea.findById(req.params.id);
+          if(idea.username === req.body.username){
+               const updateIdea = await Idea.findByIdAndUpdate(req.params.id, req.body, { new: true });
+               return res.json({ success: true, data: updateIdea });
+          }
+
+          //when username does not match
+          res.status(403).json({ success: false, message: 'You are not authorized to edit this idea.' });
      } catch (error) {
           console.log(error);
           res.status(500).json({ success: false, message: 'Server error on updating.' });
@@ -55,8 +61,14 @@ router.put('/:id', async (req, res) => {
 //delete an idea
 router.delete('/:id', async (req, res) => {
      try {
-          await Idea.findByIdAndDelete(req.params.id);
-          res.json({ success: true, data: {} });
+          const idea = await Idea.findById(req.params.id);
+          if(idea.username ===  req.body.username){
+               await Idea.findByIdAndDelete(req.params.id);
+               return res.json({ success: true, data: {} });
+          }
+          //Users name do not match
+          res.status(403).json({ success:false, message: 'Yor are not authorized to delete this idea.' });
+
      } catch (error) {
           console.log(error);
           res.status(500).json({ success:false, message: 'Server error on deleting an idea.' });

@@ -45,6 +45,7 @@ class IdeaList{
                const tagClass = this.getTagClass(idea.tag);
                return `
                <div class="card">
+                    <button class="delete"><i class="fa fa-times"></i></button>
                     <h3>
                     ${idea.text}
                     </h3>
