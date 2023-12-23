@@ -14,6 +14,17 @@ class IdeaList{
           this.validtag.add('inventions');
      }
 
+     addEventListener(){
+          this._ideaListEl.addEventListener('click', (e) => {
+               if(e.target.classList.contains('fa-times')){
+                    // console.log(e.target.classList.contains('fa-times'));
+                    e.stopImmediatePropagation();
+                    const ideaId = e.target.parentElement.parentElement.dataset.id;
+                    this.deleteIdea(ideaId);
+               }
+          })
+     }
+
      async getIdeas(){
           try {
                const response = await ideasApi.connectIdeas();
@@ -22,6 +33,18 @@ class IdeaList{
                this.render();
           } catch (error) {
                console.log(error);
+          }
+     }
+
+     async deleteIdea(ideaId){
+          try {
+               await ideasApi.deleteIdea(ideaId);
+               this._ideas.filter(idea => {
+                    idea._id !== ideaId
+               });
+               this.getIdeas();
+          } catch (error) {
+               alert('You are not allowed to delete this idea.')
           }
      }
 
@@ -42,10 +65,11 @@ class IdeaList{
      }
      render(){
           this._ideaListEl.innerHTML = this._ideas.map((idea) => {
+               const deleteBtn = idea.username === localStorage.getItem('username') ? `<button class="delete"><i class="fa fa-times"></i></button>` : '';
                const tagClass = this.getTagClass(idea.tag);
                return `
-               <div class="card">
-                    <button class="delete"><i class="fa fa-times"></i></button>
+               <div class="card" data-id=${idea._id}>
+                    ${deleteBtn}
                     <h3>
                     ${idea.text}
                     </h3>
@@ -57,6 +81,7 @@ class IdeaList{
                </div>
                `;
           }).join('');
+          this.addEventListener();
      }
 }
 
